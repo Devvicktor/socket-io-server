@@ -1,9 +1,14 @@
 const app = require("express")();
+const cors=require('cors')
 const port=process.env.PORT || 3000;
 const httpServer = require("http").createServer(app);
+
+app.use(cors({
+  origin: "https://devvicktor.github.io/socketioclient/"
+}))
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "https://devvicktor.github.io/socketioclient",
+    origin: "https://devvicktor.github.io/socketioclient/",
     methods: ["GET", "POST"],
   },
   transports : ['polling']
