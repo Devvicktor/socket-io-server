@@ -3,7 +3,7 @@ const port=process.env.PORT || 3000;
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "http://127.0.0.1:5500",
+    origin: "https://devvicktor.github.io/socketioclient/",
     methods: ["GET", "POST"],
   },
 });
