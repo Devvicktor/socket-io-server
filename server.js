@@ -6,6 +6,7 @@ const io = require("socket.io")(httpServer, {
     origin: "https://devvicktor.github.io/socketioclient:443/",
     methods: ["GET", "POST"],
   },
+  transports : ['xhr-polling']
 });
 io.on("connection", (socket) => {
   // server-side
