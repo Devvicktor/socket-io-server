@@ -37,12 +37,12 @@ io.on ('connection', socket => {
       formatMessage (botName, 'Welcome to ChatCord!')
     );
     //broad cast when user connects
-    socket.broadcact
-      .to (user.room)
-      .emit (
-        'chat message',
-        formatMessage (botName, `${user.username} has joined the chat`)
-      );
+    // socket.broadcact
+    //   .to (user.room)
+    //   .emit (
+    //     'chat message',
+    //     formatMessage (botName, `${user.username} has joined the chat`)
+    //   );
 
     //get room users
     // Send users and room info
