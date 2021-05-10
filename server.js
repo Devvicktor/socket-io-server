@@ -11,12 +11,14 @@ const {
 } = require ('./utils/users');
 app.use (
   cors ({
-    origin: 'https://devvicktor.github.io',
+    // origin: 'https://devvicktor.github.io',
+    origin: 'http://127.0.0.1:5502',
   })
 );
 const io = require ('socket.io') (httpServer, {
   cors: {
-    origin: 'https://devvicktor.github.io',
+    // origin: 'https://devvicktor.github.io',
+    origin: 'http://127.0.0.1:5502',
     methods: ['GET', 'POST'],
   },
   transports: ['polling'],
@@ -37,12 +39,12 @@ io.on ('connection', socket => {
       formatMessage (botName, 'Welcome to ChatCord!')
     );
     //broad cast when user connects
-    // socket.broadcact
-    //   .to (user.room)
-    //   .emit (
-    //     'chat message',
-    //     formatMessage (botName, `${user.username} has joined the chat`)
-    //   );
+    socket.broadcast
+      .to (user.room)
+      .emit (
+        'chat message',
+        formatMessage (botName, `${user.username} has joined the chat`)
+      );
 
     //get room users
     // Send users and room info
@@ -50,6 +52,7 @@ io.on ('connection', socket => {
       room: user.room,
       users: getRoomUsers (user.room),
     });
+
   });
   ///////////////////////////////////
   /////////lets send data across
@@ -61,6 +64,23 @@ io.on ('connection', socket => {
     console.log ('socketid', socket.id);
     io.to (user.room).emit ('chat message', formatMessage (user.username, msg));
   });
+  ///////////////////
+  /////video
+  //////////////////
+  socket.on('video-on',()=>{
+    user.cam=true
+    socket.broadcast
+      .to (user.room)
+      .emit (
+        'video-on',
+        formatMessage (botName, `${user.username} has joined the video call`)
+      );
+    io.to(user.room).emit('show-video-status',user.id)
+  })
+  socket.on('video-off',()=>{
+    user.cam=false
+    io.to(user.room).emit('End-video-call',user.id)
+  })
   ///////////////////////
   ////////leave room
   ///////////////////////
