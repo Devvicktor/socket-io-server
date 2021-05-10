@@ -11,14 +11,14 @@ const {
 } = require ('./utils/users');
 app.use (
   cors ({
-    // origin: 'https://devvicktor.github.io',
-    origin: 'http://127.0.0.1:5502',
+    origin: 'https://devvicktor.github.io',
+    // origin: 'http://127.0.0.1:5502',
   })
 );
 const io = require ('socket.io') (httpServer, {
   cors: {
-    // origin: 'https://devvicktor.github.io',
-    origin: 'http://127.0.0.1:5502',
+    origin: 'https://devvicktor.github.io',
+    // origin: 'http://127.0.0.1:5502',
     methods: ['GET', 'POST'],
   },
   transports: ['polling'],
